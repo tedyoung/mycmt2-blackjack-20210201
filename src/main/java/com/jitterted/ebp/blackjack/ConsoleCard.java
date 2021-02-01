@@ -4,6 +4,8 @@ import org.fusesource.jansi.Ansi;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
+// "Data Transfer Object"-like thing
+// Transformation of Domain content to content suitable for the Adapter
 public class ConsoleCard {
 
   public static String display(Card card) {
