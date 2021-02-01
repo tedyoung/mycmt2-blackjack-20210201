@@ -35,10 +35,6 @@ public class Hand {
     return handValue;
   }
 
-  String displayFirstCard() {
-    return ConsoleCard.display(cards().get(0));
-  }
-
   public List<Card> cards() {
     return List.copyOf(cards);
   }
