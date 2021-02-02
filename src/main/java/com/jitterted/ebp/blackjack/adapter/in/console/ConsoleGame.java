@@ -11,15 +11,17 @@ public class ConsoleGame {
 
   private final Game game;
 
+  // Correct direction for dependency, ConsoleGame can depend on Game
+  // this is "manual dependency injection"
   public ConsoleGame(Game game) {
     this.game = game;
   }
 
-  public static void resetScreen() {
+  private void resetScreen() {
     System.out.println(ansi().reset());
   }
 
-  public static void displayWelcomeScreen() {
+  private void displayWelcomeScreen() {
     System.out.println(ansi()
                            .bgBright(Ansi.Color.WHITE)
                            .eraseScreen()
@@ -29,13 +31,13 @@ public class ConsoleGame {
                            .fgBlack().a(" BlackJack"));
   }
 
-  public static String inputFromPlayer() {
+  private String inputFromPlayer() {
     System.out.println("[H]it or [S]tand?");
     Scanner scanner = new Scanner(System.in);
     return scanner.nextLine();
   }
 
-  public static void displayBackOfCard() {
+  private void displayBackOfCard() {
     System.out.print(
         ansi()
             .cursorUp(7)
@@ -49,7 +51,7 @@ public class ConsoleGame {
             .a("└─────────┘"));
   }
 
-  public static void displayGameState(Game game) {
+  private void displayGameState() {
     System.out.print(ansi().eraseScreen().cursor(1, 1));
     System.out.println("Dealer has: ");
     System.out.println(ConsoleHand.displayFirstCard(game.dealerHand())); // first card is Face Up
@@ -63,7 +65,7 @@ public class ConsoleGame {
     System.out.println(" (" + game.playerHand().displayValue() + ")");
   }
 
-  public static void displayFinalGameState(Game game) {
+  private void displayFinalGameState() {
     System.out.print(ansi().eraseScreen().cursor(1, 1));
     System.out.println("Dealer has: ");
     System.out.println(ConsoleHand.cardsAsString(game.dealerHand()));
@@ -85,7 +87,7 @@ public class ConsoleGame {
 
     game.dealerTurn();
 
-    displayFinalGameState(game);
+    displayFinalGameState();
 
     System.out.println(game.determineOutcome());
 
@@ -93,16 +95,16 @@ public class ConsoleGame {
   }
 
   // Player Game Loop
-  public void playerPlays() {
+  private void playerPlays() {
     while (!game.isPlayerDone()) {
-      displayGameState(game);
+      displayGameState();
       String command = inputFromPlayer();
       handle(command);
     }
   }
 
   // DISPATCHER
-  public void handle(String command) {
+  private void handle(String command) {
     if (command.toLowerCase().startsWith("h")) {
       game.playerHits();
     } else if (command.toLowerCase().startsWith("s")) {
