@@ -108,4 +108,20 @@ class BlackjackControllerTest {
         .isTrue();
   }
 
+  @Test
+  public void standCommandResultsInDealerTakesTheirTurn() throws Exception {
+    Deck stubDeck = new StubDeck(Rank.TEN, Rank.NINE,
+                                 Rank.EIGHT, Rank.THREE,
+                                 Rank.FIVE);
+    Game game = new Game(stubDeck);
+    BlackjackController blackjackController = new BlackjackController(game);
+    blackjackController.startGame();
+
+    blackjackController.standCommand();
+
+    assertThat(game.dealerHand().valueEquals(9 + 3 + 5))
+        .describedAs("Dealer hand value: " + game.dealerHand().displayValue())
+        .isTrue();
+  }
+
 }
