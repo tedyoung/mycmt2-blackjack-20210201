@@ -36,4 +36,11 @@ public class WebTest {
 
   }
 
+  @Test
+  public void postToHitEndpointRedirectsToGamePage() throws Exception {
+    mockMvc.perform(post("/hit"))
+           .andExpect(status().is3xxRedirection())
+           .andExpect(redirectedUrl("/game"));
+  }
+  
 }
