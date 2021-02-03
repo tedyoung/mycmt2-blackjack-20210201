@@ -13,7 +13,6 @@ class GameOutcomeTest {
 
     game.initialDeal();
     game.playerStands();
-    game.dealerTurn();
 
     assertThat(game.determineOutcome())
         .isEqualTo(GameOutcome.PLAYER_BEATS_DEALER);
@@ -26,7 +25,6 @@ class GameOutcomeTest {
 
     game.initialDeal();
     game.playerHits();
-    game.dealerTurn();
 
     assertThat(game.isPlayerDone())
         .isTrue();
