@@ -72,11 +72,11 @@ public class Game {
   // Event/Command
   public void playerHits() {
     playerHand.drawFrom(deck);
-    playerDone = playerHand.isBusted();
-    sendResultIfPlayerDone();
+    updatePlayerDoneTo(playerHand.isBusted());
   }
 
-  public void sendResultIfPlayerDone() {
+  private void updatePlayerDoneTo(boolean playerDone) {
+    this.playerDone = playerDone;
     if (playerDone) {
       gameMonitor.roundCompleted(this);
     }
@@ -84,9 +84,8 @@ public class Game {
 
   // Event/Command
   public void playerStands() {
-    playerDone = true;
     dealerTurn();
-    sendResultIfPlayerDone();
+    updatePlayerDoneTo(true);
   }
 
   // Query about State
